@@ -8,6 +8,7 @@ import com.example.demo.entity.Answer;
 import com.example.demo.entity.Question;
 import com.example.demo.repository.AnswerRepository;
 import com.example.demo.repository.QuestionRepository;
+import com.example.demo.service.QuestionService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 class DemoApplicationTests {
     @Autowired
-    private QuestionRepository questionRepository;
-
-    @Transactional
+    private QuestionService questionService;
+    
     @Test
     void testJpa() {
-        Optional<Question> oq = this.questionRepository.findById(2L);
-        assertTrue(oq.isPresent());
-        Question q = oq.get();
+        for (int i = 0; i < 300; i++) {
+            String subject =String.format("테스트 데이터 입니다 : [%03d] ",i);
+            String content = "테스트 데이터 입니다";
 
-        List<Answer> answerList = q.getAnswerList();
-
-        assertEquals(1, answerList.size());
-        assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
-
+            this.questionService.createQuestion(subject,content);
+            
+        }
     }
 
 
