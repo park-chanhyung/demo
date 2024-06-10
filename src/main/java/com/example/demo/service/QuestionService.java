@@ -33,7 +33,7 @@ public class QuestionService {
             throw new DataNotFoundException("question not found");
         }
     }
-    public void createQuestion(String subject, String content, SiteUser user){
+    public void create(String subject, String content, SiteUser user){
         Question question = new Question();
         question.setSubject(subject);
         question.setContent(content);
@@ -53,5 +53,10 @@ public class QuestionService {
     }
     public void delete(Question question){
         this.questionRepository.delete(question);
+    }
+
+    public void vote(Question question,SiteUser siteUser){
+        question.getVoter().add(siteUser);
+        this.questionRepository.save(question);
     }
 }

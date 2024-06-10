@@ -29,7 +29,7 @@ class DemoApplicationTests {
             String subject =String.format("테스트 데이터 입니다 : [%03d] ",i);
             String content = "테스트 데이터 입니다";
 
-            this.questionService.createQuestion(subject,content,null);
+            this.questionService.create(subject,content,null);
             
         }
     }
